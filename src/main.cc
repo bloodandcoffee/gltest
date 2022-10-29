@@ -18,6 +18,10 @@ int main(void)
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
+    
+    unsigned int buffer;
+    glGenBuffers(1, &buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, buffer);
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
