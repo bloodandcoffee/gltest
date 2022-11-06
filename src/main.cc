@@ -1,3 +1,4 @@
+#define GL_GLEXT_PROTOTYPES
 #include <GLFW/glfw3.h>
 
 int main(void)
@@ -19,9 +20,23 @@ int main(void)
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
     
+    float coords[6] = {
+        -0.5f, -0.5f,
+        0.0f, 0.5f,
+        0.5f, -0.5f
+    };
+
     unsigned int buffer;
+    // Create buffer
     glGenBuffers(1, &buffer);
+    // "Select" buffer
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
+    // Set buffer data
+    glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), coords, GL_DYNAMIC_DRAW);
+    // Gives OpenGL context on buffer data
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
+    // Enables buffer
+    glEnableVertexAttribArray(0);
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
@@ -29,11 +44,7 @@ int main(void)
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
-	glBegin(GL_TRIANGLES);
-	glVertex2f(-0.5f, -0.5f);
-	glVertex2f(0.0f, 0.5f);
-	glVertex2f(0.5f, -0.5f);
-	glEnd();
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
