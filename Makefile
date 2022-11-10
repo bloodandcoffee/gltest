@@ -2,7 +2,7 @@ CXX=g++
 CXXFLAGS=-Wall -MMD
 INCLUDEFLAGS=-lglfw -lGL
 EXEC=gltest
-OBJECTS=src/main.o
+OBJECTS=src/main.o src/shader.o
 DEPENDS=${OBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}
